@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script crossorigin="anonymous" src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+    <script type="text/babel">
+        const {
+            Button,
+        } = MaterialUI;
+
+        let reqSum = async (param1, param2) =>{
+            console.log(`param1: ${param1}, param2: ${param2}`);
+            let axiosConfig = {
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8', 'Access-Control-Allow-Origin': '*'
+                }
+            }
+            let params = {
+                param1: param1,
+                param2: param2
+            }
+            let res = await axios.post("/sum", params, axiosConfig);
+            if(res){
+                console.log(res.data.sum);
+            }
+        }
+
+        let onLoginClick = function(){
+            //console.log('signed-in');
+            reqSum(Math.random(), Math.random());
+        };
+
+        let App = (props) => {
+            return(<div>
+                    <Button
+                        variant = "contained"
+                        onClick = {onLoginClick}>
+                        Google onLoginClick
+                    </Button>
+                </div>
+            );
+        };
+        ReactDOM.render(<App/>, document.getElementById('root'));
+    </script>
+</body>
+</html>
